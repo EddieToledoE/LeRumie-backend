@@ -1,0 +1,25 @@
+# Ignorar archivos y directorios generados por el sistema operativo
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de configuración local
+.env
+
+# Ignorar directorios de dependencias
+/node_modules
+/bower_components
+
+# Ignorar archivos de compilación y construcción
+/build
+/dist
+
+# Ignorar archivos de registro y salida
+*.log
+*.txt
+
+# Ignorar archivos de respaldo
+*~
+
+# Ignorar archivos de configuración de IDE
+.idea/
+.vscode/
