@@ -1,33 +1,34 @@
-const googleConfig = require("eslint-config-google");
+const googleConfig = require('eslint-config-google');
 
 const updatedRules = {
   ...googleConfig.rules,
-  "valid-jsdoc": "off", // Sobreescribe la regla si está presente
-  "require-jsdoc": "off", // Desactiva la regla 'require-jsdoc'
+  'valid-jsdoc': 'off', // Sobreescribe la regla si está presente
+  'require-jsdoc': 'off', // Desactiva la regla 'require-jsdoc'
 };
 
 module.exports = [
   {
-    ignores: ["node_modules", "eslint.config.js"],
+    ignores: ['node_modules', 'eslint.config.js'],
   },
   {
-    files: ["**/*.js"],
+    files: ['**/*.js'],
     languageOptions: {
       ecmaVersion: 2020,
-      sourceType: "module",
+      sourceType: 'module',
       globals: {
-        node: true,
-        es2021: true,
-        console: true,
-        require: true,
-        module: true,
+        process: 'readonly',
+        console: 'readonly',
+        require: 'readonly',
+        module: 'readonly',
       },
     },
     rules: {
       ...updatedRules,
-      "no-unused-vars": "warn",
-      "no-undef": "warn",
-      "linebreak-style": ["error", "unix"],
+      'no-unused-vars': 'warn',
+      'no-undef': 'warn',
+      'linebreak-style': ['error', 'unix'],
+      'new-cap': ['error', { capIsNewExceptions: ['Router'] }],
+      'max-len': ['error', { code: 120 }],
     },
   },
 ];
