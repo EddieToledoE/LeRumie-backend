@@ -1,6 +1,6 @@
 const userResource = require('../api/v1/users/user.resource');
 const bcrypt = require('bcrypt');
-//AQUI PODRIA PONER EL CIFRADO Y TODO ESO?
+// AQUI PODRIA PONER EL CIFRADO Y TODO ESO?
 
 const createUser = async (userData) => {
   const {password, ...rest} = userData;
