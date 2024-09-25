@@ -1,6 +1,17 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+BRANCHES_PROTECTED=("main" "master" "develop")
+CURRENT_BRANCH=$(git symbolic-ref --short HEAD)
+
+for BRANCH in "${BRANCHES_PROTECTED[@]}"
+do
+  if [ "$CURRENT_BRANCH" = "$BRANCH" ]; then
+    echo "❌ Direct commits to $BRANCH branch are not allowed."
+    exit 1
+  fi
+done
+
 echo '🏗️👷 Styling, testing and building your project before committing'
 
 npm run check-lint ||
