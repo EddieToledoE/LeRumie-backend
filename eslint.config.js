@@ -27,8 +27,8 @@ module.exports = [
       'no-unused-vars': 'warn',
       'no-undef': 'warn',
       'linebreak-style': ['error', 'unix'],
-      'new-cap': ['error', { capIsNewExceptions: ['Router'] }],
-      'max-len': ['error', { code: 120 }],
+      'new-cap': ['error', {capIsNewExceptions: ['Router']}],
+      'max-len': ['error', {code: 120}],
     },
   },
 ];
