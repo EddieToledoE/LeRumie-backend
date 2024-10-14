@@ -7,14 +7,17 @@ const loginUser = async (req, res) => {
     if (error) {
       return res.status(400).json({message: error.details[0].message});
     }
-    const {email, password} = req.body;
-    const token = await authService.login(email, password);
 
-    if (!token) {
+    const {email, password} = req.body;
+    const loginResult = await authService.login(email, password);
+
+    if (!loginResult) {
       return res.status(401).json({message: 'Credenciales inválidas'});
     }
 
-    res.status(200).json({token});
+    const {token, user} = loginResult;
+
+    res.status(200).json({token, user});
   } catch (error) {
     res.status(500).json({message: 'Error en el servidor', error});
   }
