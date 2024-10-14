@@ -1,6 +1,7 @@
 const groupService = require('../../../services/group.service');
 const createGroupSchema = require('./dto/createGroup.dto');
 const updateGroupSchema = require('./dto/updateGroup.dto');
+
 const createGroup = async (req, res) => {
   try {
     const {error} = createGroupSchema.validate(req.body);
@@ -64,10 +65,21 @@ const deleteGroupById = async (req, res) => {
   }
 };
 
+const changeUserRole = async (req, res) => {
+  const {userId, groupId, newRole} = req.body;
+  try {
+    await groupService.changeUserRole(userId, groupId, newRole);
+    res.status(200).json({message: 'User role updated successfully'});
+  } catch (error) {
+    res.status(500).json({error: error.message});
+  }
+};
+
 module.exports = {
   createGroup,
   getGroupById,
   getGroups,
   updateGroupById,
   deleteGroupById,
+  changeUserRole,
 };
