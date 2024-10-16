@@ -4,10 +4,8 @@ const userGroupService = require('../services/userGroup.service');
 const createGroup = async (groupData) => {
   const {name, members, createdBy} = groupData;
 
-  // Crear el grupo
   const group = await groupResource.createGroup({name, createdBy});
 
-  // Crear relaciones en UserGroup para cada miembro
   // prettier-ignore
   const userGroupPromises = members.map((userId) =>
     userGroupService.createUserGroup({

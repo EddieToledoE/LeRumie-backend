@@ -11,10 +11,17 @@ const getUserGroupById = async (userGroupId) => {
 const deleteUserGroup = async (userGroupId) => {
   return await userGroupResource.deleteUserGroup(userGroupId);
 };
+// prettier-ignore
+const deleteUserGroupByUserIdAndGroupId = async (userId, groupId) => {
+  return await userGroupResource.deleteUserGroupByUserIdAndGroupId(
+      userId,
+      groupId,
+  );
+};
 
 const changeUserRole = async (userId, groupId, newRole) => {
   // Elimina la relación anterior
-  await deleteUserGroup(userId, groupId);
+  await deleteUserGroupByUserIdAndGroupId(userId, groupId);
 
   // Crear una nueva relación con el nuevo rol
   return await createUserGroup({userId, groupId, role: newRole});

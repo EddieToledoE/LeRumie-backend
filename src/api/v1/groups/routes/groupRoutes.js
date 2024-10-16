@@ -14,7 +14,7 @@ router.post('/create', createGroup);
 router.get('/:id', getGroupById);
 router.get('/', getGroups);
 router.put('/:id', updateGroupById);
-router.put('/change-role', changeUserRole);
+router.put('/change/role', changeUserRole);
 router.delete('/:id', deleteGroupById);
 
 module.exports = router;
