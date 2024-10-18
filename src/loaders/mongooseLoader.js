@@ -3,7 +3,7 @@ const dbConfig = require('../config/mongodbConfig');
 
 const mongooseLoader = async () => {
   try {
-    await mongoose.connect(dbConfig.uri, dbConfig.options);
+    await mongoose.connect(dbConfig.uri);
     console.log('Database connected successfully');
   } catch (error) {
     console.error('Database connection failed:', error);

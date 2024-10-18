@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const {min} = require('../api/v1/users/dto/createUser.dto');
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -13,6 +14,7 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+    min: 6,
   },
   groups: [
     {

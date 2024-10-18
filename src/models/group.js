@@ -5,12 +5,6 @@ const GroupSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  members: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-    },
-  ],
   expenses: [
     {
       type: mongoose.Schema.Types.ObjectId,

@@ -17,9 +17,14 @@ const deleteUser = async (userId) => {
   return await User.findByIdAndDelete(userId);
 };
 
+const getUserByEmail = async (email) => {
+  return await User.findOne({email});
+};
+
 module.exports = {
   createUser,
   getUserById,
   updateUser,
   deleteUser,
+  getUserByEmail,
 };
