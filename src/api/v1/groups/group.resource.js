@@ -1,5 +1,6 @@
 const Group = require('../../../models/group');
 const UserGroup = require('../../../models/usergroup');
+
 const createGroup = async (groupData) => {
   const group = new Group(groupData);
   return await group.save();

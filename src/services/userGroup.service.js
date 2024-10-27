@@ -19,6 +19,10 @@ const deleteUserGroupByUserIdAndGroupId = async (userId, groupId) => {
   );
 };
 
+const deleteUserGroupByGroupId = async (groupId) => {
+  return await userGroupResource.deleteUserGroupByGroupId(groupId);
+};
+
 const changeUserRole = async (userId, groupId, newRole) => {
   // Elimina la relación anterior
   await deleteUserGroupByUserIdAndGroupId(userId, groupId);
@@ -35,6 +39,8 @@ module.exports = {
   createUserGroup,
   getUserGroupById,
   deleteUserGroup,
+  deleteUserGroupByUserIdAndGroupId,
+  deleteUserGroupByGroupId,
   changeUserRole,
   getMembersByGroupId,
 };

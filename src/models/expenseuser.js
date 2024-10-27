@@ -19,6 +19,9 @@ const ExpenseUserSchema = new mongoose.Schema({
     type: Boolean,
     default: false, // false significa que aún no se ha pagado la deuda
   },
+  paidAt: {
+    type: Date,
+  },
 });
 
 module.exports = mongoose.model('ExpenseUser', ExpenseUserSchema);

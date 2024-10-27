@@ -17,6 +17,10 @@ const deleteUserGroupByUserIdAndGroupId = async (userId, groupId) => {
   return await UserGroup.findOneAndDelete({userId, groupId});
 };
 
+const deleteUserGroupByGroupId = async (groupId) => {
+  return await UserGroup.deleteMany({groupId});
+};
+
 const getMembersByGroupId = async (groupId) => {
   const userGroups = await UserGroup.find({groupId}).select('userId');
   return userGroups.map((userGroup) => userGroup.userId.toString());
@@ -27,5 +31,6 @@ module.exports = {
   getUserGroupById,
   deleteUserGroup,
   getMembersByGroupId,
+  deleteUserGroupByGroupId,
   deleteUserGroupByUserIdAndGroupId,
 };

@@ -4,6 +4,7 @@ const updatedRules = {
   ...googleConfig.rules,
   'valid-jsdoc': 'off', // Sobreescribe la regla si está presente
   'require-jsdoc': 'off', // Desactiva la regla 'require-jsdoc'
+  'no-invalid-this': 'off', // Desactiva la regla 'no-invalid-this'
 };
 
 module.exports = [
@@ -29,6 +30,7 @@ module.exports = [
       'linebreak-style': ['error', 'unix'],
       'new-cap': ['error', {capIsNewExceptions: ['Router']}],
       'max-len': ['error', {code: 120}],
+      'no-invalid-this': 'off',
     },
   },
 ];

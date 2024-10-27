@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const PaymentSchema = new mongoose.Schema({
-  expenseId: {
+  expenseUserId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Expense',
+    ref: 'ExpenseUser',
     required: true,
   },
   payer: {
@@ -15,7 +15,7 @@ const PaymentSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  status: {
+  isConfirmed: {
     type: Boolean,
     default: false, // false significa que el pago está pendiente
   },
