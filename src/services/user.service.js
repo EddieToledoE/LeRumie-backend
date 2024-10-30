@@ -20,9 +20,19 @@ const deleteUserById = async (userId) => {
   return await userResource.deleteUser(userId);
 };
 
+const addFriend = async (userId, friendId) => {
+  return await userResource.addFriend(userId, friendId);
+};
+
+const getFriends = async (userId) => {
+  return await userResource.getFriends(userId);
+};
+
 module.exports = {
   createUser,
   getUserById,
   updateUserById,
   deleteUserById,
+  addFriend,
+  getFriends,
 };

@@ -21,10 +21,22 @@ const getUserByEmail = async (email) => {
   return await User.findOne({email});
 };
 
+const addFriend = async (userId, friendId) => {
+  const user = await User.findById(userId);
+  user.friends.push(friendId);
+  return await user.save();
+};
+
+const getFriends = async (userId) => {
+  return await User.findById(userId).populate('friends');
+};
+
 module.exports = {
   createUser,
   getUserById,
   updateUser,
   deleteUser,
   getUserByEmail,
+  addFriend,
+  getFriends,
 };

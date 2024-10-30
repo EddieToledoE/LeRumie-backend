@@ -21,6 +21,12 @@ const UserSchema = new mongoose.Schema({
       ref: 'Group',
     },
   ],
+  friends: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
   notificationPreferences: {
     type: Object,
   },

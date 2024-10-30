@@ -55,9 +55,32 @@ const deleteUserById = async (req, res) => {
   }
 };
 
+const addFriend = async (req, res) => {
+  try {
+    const user = await userService.addFriend(req.params.id, req.body.friendId);
+    if (!user) {
+      return res.status(404).json({error: 'User not found'});
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(400).json({error: error.message});
+  }
+};
+
+const getFriends = async (req, res) => {
+  try {
+    const friends = await userService.getFriends(req.params.id);
+    res.json(friends);
+  } catch (error) {
+    res.status(400).json({error: error.message});
+  }
+};
+
 module.exports = {
   createUser,
   getUserById,
   updateUserById,
   deleteUserById,
+  addFriend,
+  getFriends,
 };
