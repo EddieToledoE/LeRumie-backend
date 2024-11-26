@@ -15,6 +15,14 @@ const UserSchema = new mongoose.Schema({
     required: true,
     min: 6,
   },
+  resetPasswordToken: {
+    type: String, // El token para la recuperación de la contraseña
+    default: null,
+  },
+  resetPasswordExpires: {
+    type: Date, // La fecha de expiración del token
+    default: null,
+  },
   groups: [
     {
       type: mongoose.Schema.Types.ObjectId,
