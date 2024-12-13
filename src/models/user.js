@@ -5,6 +5,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  username: {type: String, required: true, unique: true}, // Nuevo campo único
   email: {
     type: String,
     required: true,
@@ -35,6 +36,8 @@ const UserSchema = new mongoose.Schema({
       ref: 'User',
     },
   ],
+  incomingRequests: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}], // Solicitudes recibidas
+  outgoingRequests: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}], // Solicitudes enviadas
   notificationPreferences: {
     type: Object,
   },

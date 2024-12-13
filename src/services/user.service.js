@@ -24,6 +24,22 @@ const addFriend = async (userId, friendId) => {
   return await userResource.addFriend(userId, friendId);
 };
 
+const sendFriendRequest = async (userId, friendId) => {
+  return await userResource.sendFriendRequest(userId, friendId);
+};
+
+const acceptFriendRequest = async (userId, friendId) => {
+  return await userResource.acceptFriendRequest(userId, friendId);
+};
+
+const rejectFriendRequest = async (userId, friendId) => {
+  return await userResource.rejectFriendRequest(userId, friendId);
+};
+
+const searchUsersByUsername = async (username) => {
+  return await userResource.searchUsersByUsername(username);
+};
+
 const getFriends = async (userId) => {
   return await userResource.getFriends(userId);
 };
@@ -35,4 +51,8 @@ module.exports = {
   deleteUserById,
   addFriend,
   getFriends,
+  sendFriendRequest,
+  acceptFriendRequest,
+  rejectFriendRequest,
+  searchUsersByUsername,
 };

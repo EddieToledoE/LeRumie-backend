@@ -21,6 +21,53 @@ const getUserByEmail = async (email) => {
   return await User.findOne({email});
 };
 
+const sendFriendRequest = async (userId, friendId) => {
+  const user = await User.findById(userId);
+  const friend = await User.findById(friendId);
+
+  if (!user || !friend) throw new Error('Usuario no encontrado');
+
+  user.outgoingRequests.push(friendId);
+  friend.incomingRequests.push(userId);
+
+  await user.save();
+  await friend.save();
+};
+
+const acceptFriendRequest = async (userId, friendId) => {
+  const user = await User.findById(userId);
+  const friend = await User.findById(friendId);
+
+  if (!user || !friend) throw new Error('Usuario no encontrado');
+
+  user.incomingRequests.pull(friendId);
+  friend.outgoingRequests.pull(userId);
+
+  user.friends.push(friendId);
+  friend.friends.push(userId);
+
+  await user.save();
+  await friend.save();
+};
+
+const rejectFriendRequest = async (userId, friendId) => {
+  const user = await User.findById(userId);
+  const friend = await User.findById(friendId);
+
+  if (!user || !friend) throw new Error('Usuario no encontrado');
+
+  user.incomingRequests.pull(friendId);
+  friend.outgoingRequests.pull(userId);
+
+  await user.save();
+  await friend.save();
+};
+
+const searchUsersByUsername = async (username) => {
+  return await User.find({username: {$regex: username, $options: 'i'}}) // 'i' hace la búsqueda insensible a mayúsculas
+      .select('username _id'); // Devuelve solo el username y el id
+};
+
 const addFriend = async (userId, friendId) => {
   const user = await User.findById(userId);
   user.friends.push(friendId);
@@ -39,4 +86,8 @@ module.exports = {
   getUserByEmail,
   addFriend,
   getFriends,
+  sendFriendRequest,
+  acceptFriendRequest,
+  rejectFriendRequest,
+  searchUsersByUsername,
 };

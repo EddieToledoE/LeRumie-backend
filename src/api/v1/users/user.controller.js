@@ -76,6 +76,62 @@ const getFriends = async (req, res) => {
   }
 };
 
+const sendFriendRequest = async (req, res) => {
+  try {
+    const {friendId} = req.body;
+    const userId = req.params.id;
+
+    await userService.sendFriendRequest(userId, friendId);
+    res.status(200).json({message: 'Solicitud enviada exitosamente'});
+  } catch (error) {
+    res.status(400).json({error: error.message});
+  }
+};
+
+const acceptFriendRequest = async (req, res) => {
+  try {
+    const {friendId} = req.body;
+    const userId = req.params.id;
+
+    await userService.acceptFriendRequest(userId, friendId);
+    res.status(200).json({message: 'Solicitud aceptada exitosamente'});
+  } catch (error) {
+    res.status(400).json({error: error.message});
+  }
+};
+
+const rejectFriendRequest = async (req, res) => {
+  try {
+    const {friendId} = req.body;
+    const userId = req.params.id;
+
+    await userService.rejectFriendRequest(userId, friendId);
+    res.status(200).json({message: 'Solicitud rechazada exitosamente'});
+  } catch (error) {
+    res.status(400).json({error: error.message});
+  }
+};
+
+const searchUsersByUsername = async (req, res) => {
+  try {
+    const {username} = req.query; // Obtenemos el username desde los query params
+
+    if (!username) {
+      return res.status(400).json({error: 'El campo username es obligatorio'});
+    }
+
+    const users = await userService.searchUsersByUsername(username);
+
+    if (users.length === 0) {
+      return res.status(404).json({error: 'No se encontraron usuarios'});
+    }
+
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({error: error.message});
+  }
+};
+
 module.exports = {
   createUser,
   getUserById,
@@ -83,4 +139,8 @@ module.exports = {
   deleteUserById,
   addFriend,
   getFriends,
+  sendFriendRequest,
+  acceptFriendRequest,
+  rejectFriendRequest,
+  searchUsersByUsername,
 };
