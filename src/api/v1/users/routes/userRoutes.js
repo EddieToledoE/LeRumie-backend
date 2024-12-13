@@ -21,5 +21,5 @@ router.delete('/:id', authenticateToken, deleteUserById);
 router.post('/friend/request/:id', sendFriendRequest);
 router.post('/friend/accept/:id', acceptFriendRequest);
 router.post('/friend/reject/:id', rejectFriendRequest);
-router.get('/search', searchUsersByUsername);
+router.get('/friend/search', searchUsersByUsername);
 module.exports = router;

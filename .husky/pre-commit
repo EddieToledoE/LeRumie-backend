@@ -11,6 +11,7 @@ do
     exit 1
   fi
 done
+npx eslint . --fix
 
 echo '🏗️👷 Styling, testing and building your project before committing'
 
