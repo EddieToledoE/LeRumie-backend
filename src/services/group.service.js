@@ -27,6 +27,10 @@ const getGroupById = async (groupId) => {
   return await groupResource.getGroupById(groupId);
 };
 
+const getGroupsByUserId = async (userId) => {
+  return await groupResource.getGroupsByUserId(userId);
+};
+
 const getGroups = async () => {
   return await groupResource.getGroups();
 };
@@ -75,6 +79,7 @@ const deleteGroup = async (groupId) => {
 module.exports = {
   createGroup,
   getGroupById,
+  getGroupsByUserId,
   getGroups,
   updateGroup,
   deleteGroup,

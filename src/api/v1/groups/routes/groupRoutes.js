@@ -2,6 +2,7 @@ const Router = require('express').Router;
 const {
   createGroup,
   getGroupById,
+  getGroupsByUserId,
   getGroups,
   updateGroupById,
   deleteGroupById,
@@ -12,6 +13,7 @@ const router = Router();
 
 router.post('/create', createGroup);
 router.get('/:id', getGroupById);
+router.get('/user/:userId', getGroupsByUserId);
 router.get('/', getGroups);
 router.put('/:id', updateGroupById);
 router.put('/change/role', changeUserRole);

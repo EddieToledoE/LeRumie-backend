@@ -7,9 +7,9 @@ const createUser = async (userData) => {
 
 const getUserById = async (userId) => {
   return await User.findById(userId)
-    .populate('friends', 'username _id')
-    .populate('incomingRequests', 'username _id')
-    .populate('outgoingRequests', 'username _id');
+      .populate('friends', 'username _id')
+      .populate('incomingRequests', 'username _id')
+      .populate('outgoingRequests', 'username _id');
 };
 
 const updateUser = async (userId, updateData) => {
@@ -68,7 +68,7 @@ const rejectFriendRequest = async (userId, friendId) => {
 
 const searchUsersByUsername = async (username) => {
   return await User.find({username: {$regex: username, $options: 'i'}}) // 'i' hace la búsqueda insensible a mayúsculas
-    .select('username _id'); // Devuelve solo el username y el id
+      .select('username _id'); // Devuelve solo el username y el id
 };
 
 const addFriend = async (userId, friendId) => {

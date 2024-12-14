@@ -27,6 +27,24 @@ const getGroupById = async (req, res) => {
   }
 };
 
+const getGroupsByUserId = async (req, res) => {
+  try {
+    const {userId} = req.params; // Obtener el userId desde la ruta
+
+    const groups = await groupService.getGroupsByUserId(userId);
+
+    if (!groups.length) {
+      return res
+        .status(404)
+        .json({error: 'No se encontraron grupos para este usuario.'});
+    }
+
+    res.json(groups);
+  } catch (error) {
+    res.status(500).json({error: error.message});
+  }
+};
+
 const getGroups = async (req, res) => {
   try {
     const groups = await groupService.getGroups();
@@ -83,6 +101,7 @@ const changeUserRole = async (req, res) => {
 module.exports = {
   createGroup,
   getGroupById,
+  getGroupsByUserId,
   getGroups,
   updateGroupById,
   deleteGroupById,

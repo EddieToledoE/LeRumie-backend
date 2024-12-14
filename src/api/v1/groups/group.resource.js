@@ -15,13 +15,23 @@ const getGroupById = async (groupId) => {
   // Buscar los miembros asociados desde UserGroup y poblar con los datos del usuario
   // prettier-ignore
   const members = await UserGroup.find({groupId})
-      .populate('userId', 'name email') // Solo los campos necesarios del usuario
+      .populate('userId', 'name username email') // Solo los campos necesarios del usuario
       .lean();
 
   // Agregar los miembros al grupo como un campo adicional
   group.members = members.map((userGroup) => userGroup.userId);
 
   return group;
+};
+
+const getGroupsByUserId = async (userId) => {
+  // Buscar todas las relaciones de grupos para el usuario
+  const userGroups = await UserGroup.find({userId})
+    .populate('groupId', 'name createdBy createdAt updatedAt') // Poblar datos del grupo
+    .lean();
+
+  // Extraer solo la información de los grupos
+  return userGroups.map((userGroup) => userGroup.groupId);
 };
 
 const getGroups = async () => {
@@ -39,6 +49,7 @@ const deleteGroup = async (groupId) => {
 module.exports = {
   createGroup,
   getGroupById,
+  getGroupsByUserId,
   getGroups,
   updateGroup,
   deleteGroup,
