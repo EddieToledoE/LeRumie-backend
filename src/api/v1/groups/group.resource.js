@@ -27,8 +27,8 @@ const getGroupById = async (groupId) => {
 const getGroupsByUserId = async (userId) => {
   // Buscar todas las relaciones de grupos para el usuario
   const userGroups = await UserGroup.find({userId})
-    .populate('groupId', 'name createdBy createdAt updatedAt') // Poblar datos del grupo
-    .lean();
+      .populate('groupId', 'name createdBy createdAt updatedAt') // Poblar datos del grupo
+      .lean();
 
   // Extraer solo la información de los grupos
   return userGroups.map((userGroup) => userGroup.groupId);

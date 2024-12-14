@@ -35,8 +35,8 @@ const getGroupsByUserId = async (req, res) => {
 
     if (!groups.length) {
       return res
-        .status(404)
-        .json({error: 'No se encontraron grupos para este usuario.'});
+          .status(404)
+          .json({error: 'No se encontraron grupos para este usuario.'});
     }
 
     res.json(groups);

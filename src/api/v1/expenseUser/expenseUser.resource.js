@@ -14,8 +14,12 @@ const getExpensesUsers = async () => {
 };
 // Ruta Propia
 const getExpenseUserByUserId = async (userId) => {
-  return await ExpenserUser.find({userId});
+  return await ExpenserUser.find({userId}).populate({
+    path: 'expenseId', // Populate el campo expenseId
+    select: 'description amount paidBy', // Campos que quieres incluir del expense
+  });
 };
+
 // Este se usara para modificar lo que debe y si ya esta pagado
 const updateExpenseUser = async (expenseUserId, updateData) => {
   return await ExpenserUser.findByIdAndUpdate(expenseUserId, updateData, {
