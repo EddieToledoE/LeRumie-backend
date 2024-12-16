@@ -12,8 +12,7 @@ const GroupSchema = new mongoose.Schema({
     },
   ],
   createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    type: string,
     required: true,
   },
   createdAt: {
