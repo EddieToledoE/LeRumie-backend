@@ -8,7 +8,7 @@ const createPaymentNotification = async (payment) => {
   try {
     // 1. Obtener el ExpenseUser asociado al pago
     const expenseUser = await ExpenseUser.findById(
-      payment.expenseUserId
+        payment.expenseUserId,
     ).populate({
       path: 'expenseId',
       select: 'paidBy', // Solo obtenemos el campo 'paidBy' del gasto
@@ -73,9 +73,9 @@ const deleteNotification = async (notificationId) => {
 const markNotificationAsRead = async (userId, type, referenceId) => {
   const notification =
     await NotificationResource.getNotificationByTypeAndReference(
-      userId,
-      type,
-      referenceId
+        userId,
+        type,
+        referenceId,
     );
   if (notification) {
     notification.read = true;
@@ -85,7 +85,7 @@ const markNotificationAsRead = async (userId, type, referenceId) => {
 
 const markNotificationAsReadEasier = async (notificationId) => {
   const notification = await NotificationResource.getNotificationById(
-    notificationId
+      notificationId,
   );
   if (notification) {
     notification.read = true;
