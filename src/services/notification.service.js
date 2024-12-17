@@ -84,11 +84,11 @@ const markNotificationAsRead = async (userId, type, referenceId) => {
 };
 
 const getNotificationsByUserId = async (userId) => {
-  return await notificationResource.getNotificationsByUserId(userId);
+  return await NotificationResource.getNotificationsByUserId(userId);
 };
 
 const getNotificationsByReceiverId = async (receiverId) => {
-  return await notificationResource.getNotificationsByReceiverId(receiverId);
+  return await NotificationResource.getNotificationsByReceiverId(receiverId);
 };
 
 module.exports = {

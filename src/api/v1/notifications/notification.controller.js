@@ -5,7 +5,7 @@ const getNotificationsByUserId = async (req, res) => {
     const {userId} = req.params;
 
     const notifications = await notificationService.getNotificationsByUserId(
-      userId
+        userId,
     );
 
     res.status(200).json(notifications);

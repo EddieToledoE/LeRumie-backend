@@ -21,12 +21,12 @@ const getNotificationByTypeAndReference = async (userId, type, referenceId) => {
 };
 
 const getNotificationsByUserId = async (userId) => {
-  return await Notification.find({userId}).sort({createdAt: -1}); // Ordena por fecha descendente
+  return await NotificationSchema.find({userId}).sort({createdAt: -1}); // Ordena por fecha descendente
 };
 
 // Obtener notificaciones por receiverId
 const getNotificationsByReceiverId = async (receiverId) => {
-  return await Notification.find({receiverId}).sort({createdAt: -1}); // Ordena por fecha descendente
+  return await NotificationSchema.find({receiverId}).sort({createdAt: -1}); // Ordena por fecha descendente
 };
 
 module.exports = {
