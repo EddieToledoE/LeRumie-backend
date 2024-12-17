@@ -1,17 +1,41 @@
 const NotificationResource = require('../api/v1/notifications/notification.resource');
-
+const ExpenseUser = require('../../src/models/expenseuser');
 const createNotification = async (notificationData) => {
   return await NotificationResource.createNotification(notificationData);
 };
 
 const createPaymentNotification = async (payment) => {
-  const notificationData = {
-    userId: payment.payer, // ID del usuario que realizó el pago
-    message: `Se ha registrado un nuevo pago de ${payment.amount}`,
-    type: 'NEW_PAYMENT', // Tipo de notificación
-    referenceId: payment._id, // ID de referencia del pago
-  };
-  return await createNotification(notificationData);
+  try {
+    // 1. Obtener el ExpenseUser asociado al pago
+    const expenseUser = await ExpenseUser.findById(
+      payment.expenseUserId
+    ).populate({
+      path: 'expenseId',
+      select: 'paidBy', // Solo obtenemos el campo 'paidBy' del gasto
+    });
+
+    if (!expenseUser) {
+      throw new Error('ExpenseUser no encontrado');
+    }
+
+    // 2. Extraer el receiverId del campo 'paidBy' del Expense
+    const receiverId = expenseUser.expenseId.paidBy;
+
+    // 3. Crear la notificación con los datos
+    const notificationData = {
+      userId: payment.payer, // El usuario que realizó el pago
+      receiverId: receiverId, // El usuario que recibe la notificación
+      message: `Se ha registrado un nuevo pago de ${payment.amount}`,
+      type: 'NEW_PAYMENT',
+      referenceId: payment._id,
+    };
+
+    // 4. Guardar la notificación en la base de datos
+    return await createNotification(notificationData);
+  } catch (error) {
+    console.error('Error al crear la notificación:', error.message);
+    throw new Error('No se pudo crear la notificación');
+  }
 };
 
 const createConfirmedPaymentNotification = async (payment) => {
@@ -49,14 +73,22 @@ const deleteNotification = async (notificationId) => {
 const markNotificationAsRead = async (userId, type, referenceId) => {
   const notification =
     await NotificationResource.getNotificationByTypeAndReference(
-        userId,
-        type,
-        referenceId,
+      userId,
+      type,
+      referenceId
     );
   if (notification) {
     notification.read = true;
     await notification.save();
   }
+};
+
+const getNotificationsByUserId = async (userId) => {
+  return await notificationResource.getNotificationsByUserId(userId);
+};
+
+const getNotificationsByReceiverId = async (receiverId) => {
+  return await notificationResource.getNotificationsByReceiverId(receiverId);
 };
 
 module.exports = {
@@ -68,4 +100,6 @@ module.exports = {
   getNotificationById,
   deleteNotification,
   markNotificationAsRead,
+  getNotificationsByUserId,
+  getNotificationsByReceiverId,
 };
