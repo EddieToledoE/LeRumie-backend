@@ -83,6 +83,16 @@ const markNotificationAsRead = async (userId, type, referenceId) => {
   }
 };
 
+const markNotificationAsReadEasier = async (notificationId) => {
+  const notification = await NotificationResource.getNotificationById(
+    notificationId
+  );
+  if (notification) {
+    notification.read = true;
+    await notification.save();
+  }
+};
+
 const getNotificationsByUserId = async (userId) => {
   return await NotificationResource.getNotificationsByUserId(userId);
 };
@@ -102,4 +112,5 @@ module.exports = {
   markNotificationAsRead,
   getNotificationsByUserId,
   getNotificationsByReceiverId,
+  markNotificationAsReadEasier,
 };

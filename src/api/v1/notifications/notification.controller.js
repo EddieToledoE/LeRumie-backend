@@ -5,7 +5,7 @@ const getNotificationsByUserId = async (req, res) => {
     const {userId} = req.params;
 
     const notifications = await notificationService.getNotificationsByUserId(
-        userId,
+      userId
     );
 
     res.status(200).json(notifications);
@@ -27,7 +27,22 @@ const getNotificationsByReceiverId = async (req, res) => {
   }
 };
 
+const markNotificationAsRead = async (req, res) => {
+  try {
+    const {id} = req.params;
+
+    await notificationService.markNotificationAsReadEasier(id);
+
+    res.status(200).json({message: 'Notificación marcada como leída'});
+  } catch (error) {
+    res
+      .status(500)
+      .json({error: 'No se pudo marcar la notificación como leída'});
+  }
+};
+
 module.exports = {
   getNotificationsByUserId,
   getNotificationsByReceiverId,
+  markNotificationAsRead,
 };
