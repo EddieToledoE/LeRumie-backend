@@ -20,7 +20,7 @@ const createExpense = async (expenseData) => {
       expenseId: expense._id,
       amountOwed: customAmountOwed,
       initialAmount: customAmountOwed,
-    })
+    }),
   );
 
   await Promise.all(userExpensePromises); // Ejecutar todas las promesas en paralelo

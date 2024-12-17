@@ -8,7 +8,7 @@ const createPaymentNotification = async (payment) => {
   try {
     // 1. Obtener el ExpenseUser asociado al pago
     const expenseUser = await ExpenseUser.findById(
-        payment.expenseUserId,
+      payment.expenseUserId
     ).populate({
       path: 'expenseId',
       select: 'paidBy', // Solo obtenemos el campo 'paidBy' del gasto
@@ -39,23 +39,72 @@ const createPaymentNotification = async (payment) => {
 };
 
 const createConfirmedPaymentNotification = async (payment) => {
-  const notificationData = {
-    userId: payment.payer, // ID del usuario que realizó el pago
-    message: `El pago de ${payment.amount} ha sido confirmado`,
-    type: 'PAYMENT_CONFIRMATION', // Tipo de notificación
-    referenceId: payment._id, // ID de referencia del pago
-  };
-  return await createNotification(notificationData);
+  try {
+    // 1. Obtener el ExpenseUser asociado al pago
+    const expenseUser = await ExpenseUser.findById(
+      payment.expenseUserId
+    ).populate({
+      path: 'expenseId',
+      select: 'paidBy', // Obtener solo el campo 'paidBy' del Expense
+    });
+
+    if (!expenseUser) {
+      throw new Error('ExpenseUser no encontrado');
+    }
+
+    // 2. Extraer el receiverId del campo 'paidBy' del Expense
+    const receiverId = expenseUser.expenseId.paidBy;
+
+    // 3. Crear la notificación con los datos
+    const notificationData = {
+      userId: payment.payer, // El usuario que realizó el pago
+      receiverId: receiverId, // El usuario que recibe la notificación
+      message: `El pago de ${payment.amount} ha sido confirmado`,
+      type: 'PAYMENT_CONFIRMATION',
+      referenceId: payment._id,
+    };
+
+    return await createNotification(notificationData);
+  } catch (error) {
+    console.error(
+      'Error al crear la notificación de confirmación:',
+      error.message
+    );
+    throw new Error('No se pudo crear la notificación de confirmación');
+  }
 };
 
 const createRejectedPaymentNotification = async (payment) => {
-  const notificationData = {
-    userId: payment.payer, // ID del usuario que realizó el pago
-    message: `El pago de ${payment.amount} ha sido rechazado`,
-    type: 'PAYMENT_REJECTED', // Tipo de notificación
-    referenceId: payment._id, // ID de referencia del pago
-  };
-  return await createNotification(notificationData);
+  try {
+    // 1. Obtener el ExpenseUser asociado al pago
+    const expenseUser = await ExpenseUser.findById(
+      payment.expenseUserId
+    ).populate({
+      path: 'expenseId',
+      select: 'paidBy', // Obtener solo el campo 'paidBy' del Expense
+    });
+
+    if (!expenseUser) {
+      throw new Error('ExpenseUser no encontrado');
+    }
+
+    // 2. Extraer el receiverId del campo 'paidBy' del Expense
+    const receiverId = expenseUser.expenseId.paidBy;
+
+    // 3. Crear la notificación con los datos
+    const notificationData = {
+      userId: payment.payer, // El usuario que realizó el pago
+      receiverId: receiverId, // El usuario que recibe la notificación
+      message: `El pago de ${payment.amount} ha sido rechazado`,
+      type: 'PAYMENT_REJECTED',
+      referenceId: payment._id,
+    };
+
+    return await createNotification(notificationData);
+  } catch (error) {
+    console.error('Error al crear la notificación de rechazo:', error.message);
+    throw new Error('No se pudo crear la notificación de rechazo');
+  }
 };
 
 const getNotifications = async () => {
@@ -73,9 +122,9 @@ const deleteNotification = async (notificationId) => {
 const markNotificationAsRead = async (userId, type, referenceId) => {
   const notification =
     await NotificationResource.getNotificationByTypeAndReference(
-        userId,
-        type,
-        referenceId,
+      userId,
+      type,
+      referenceId
     );
   if (notification) {
     notification.read = true;
@@ -85,7 +134,7 @@ const markNotificationAsRead = async (userId, type, referenceId) => {
 
 const markNotificationAsReadEasier = async (notificationId) => {
   const notification = await NotificationResource.getNotificationById(
-      notificationId,
+    notificationId
   );
   if (notification) {
     notification.read = true;
