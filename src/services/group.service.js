@@ -2,20 +2,29 @@ const groupResource = require('../api/v1/groups/group.resource');
 const userGroupService = require('../services/userGroup.service');
 
 const createGroup = async (groupData) => {
-  const {name, members, createdBy} = groupData;
+  const {name, members, createdBy, isFixedExpenses, billingDay, billingPeriod} =
+    groupData;
 
-  const group = await groupResource.createGroup({name, createdBy});
+  // Crear el grupo con los datos
+  const group = await groupResource.createGroup({
+    name,
+    createdBy,
+    isFixedExpenses,
+    billingDay,
+    billingPeriod,
+  });
 
-  // prettier-ignore
+  // Crear las relaciones entre usuarios y grupo
   const userGroupPromises = members.map((userId) =>
     userGroupService.createUserGroup({
       userId,
       groupId: group._id,
       role: userId === createdBy ? 'admin' : 'member',
-    }),
+    })
   );
 
-  await Promise.all(userGroupPromises); // Ejecuta todas las promesas en paralelo
+  await Promise.all(userGroupPromises);
+
   return group;
 };
 

@@ -24,7 +24,7 @@ const getExpenseUserByExpenseId = async (req, res) => {
   try {
     const {expenseId} = req.params;
     const expenses = await ExpenseUserServices.getExpenseUserByExpenseId(
-      expenseId
+        expenseId,
     );
     res.status(200).json(expenses);
   } catch (error) {

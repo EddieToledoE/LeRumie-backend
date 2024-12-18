@@ -22,14 +22,14 @@ const getExpenseUserByUserId = async (userId) => {
 
 const getExpenseUserByExpenseId = async (expenseId) => {
   return await ExpenserUser.find({expenseId})
-    .populate({
-      path: 'expenseId', // Populate del expense relacionado
-      select: 'description amount paidBy', // Campos necesarios
-    })
-    .populate({
-      path: 'userId', // Populate del usuario
-      select: 'username', // Solo traemos el nombre del usuario
-    });
+      .populate({
+        path: 'expenseId', // Populate del expense relacionado
+        select: 'description amount paidBy', // Campos necesarios
+      })
+      .populate({
+        path: 'userId', // Populate del usuario
+        select: 'username', // Solo traemos el nombre del usuario
+      });
 };
 
 // Este se usara para modificar lo que debe y si ya esta pagado
