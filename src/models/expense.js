@@ -41,10 +41,10 @@ const ExpenseSchema = new mongoose.Schema({
 
 // validar que los montos de customAmountOwed sumen el total del gasto
 
-ExpenseSchema.path('splitBetween').validate(function(value) {
+ExpenseSchema.path('splitBetween').validate(function (value) {
   const totalAmountOwed = value.reduce(
-      (acc, user) => acc + user.customAmountOwed,
-      0,
+    (acc, user) => acc + user.customAmountOwed,
+    0
   );
   return totalAmountOwed === this.amount;
 }, 'La suma de los montos a deber debe ser igual al monto total del gasto');

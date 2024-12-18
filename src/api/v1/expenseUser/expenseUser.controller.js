@@ -20,7 +20,20 @@ const getExpenseUserById = async (req, res) => {
   }
 };
 
+const getExpenseUserByExpenseId = async (req, res) => {
+  try {
+    const {expenseId} = req.params;
+    const expenses = await ExpenseUserServices.getExpenseUserByExpenseId(
+      expenseId
+    );
+    res.status(200).json(expenses);
+  } catch (error) {
+    res.status(404).json({message: error.message});
+  }
+};
+
 module.exports = {
   getExpenseUserByUserId,
   getExpenseUserById,
+  getExpenseUserByExpenseId,
 };

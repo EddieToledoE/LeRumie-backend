@@ -12,6 +12,9 @@ const getExpensesUsers = async () => {
   return await ExpenseUserResource.getExpensesUsers();
 };
 
+const getExpenseUserByExpenseId = async (expenseId) => {
+  return await ExpenseUserResource.getExpenseUserByExpenseId(expenseId);
+};
 const getExpenseUserByUserId = async (userId) => {
   return await ExpenseUserResource.getExpenseUserByUserId(userId);
 };
@@ -33,6 +36,7 @@ module.exports = {
   getExpenseUserById,
   getExpensesUsers,
   getExpenseUserByUserId,
+  getExpenseUserByExpenseId,
   updateExpenseUser,
   deleteExpenseUser,
   deleteExpenseUsersByExpenseId,

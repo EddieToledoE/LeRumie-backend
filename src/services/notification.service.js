@@ -8,7 +8,7 @@ const createPaymentNotification = async (payment) => {
   try {
     // 1. Obtener el ExpenseUser asociado al pago
     const expenseUser = await ExpenseUser.findById(
-      payment.expenseUserId
+        payment.expenseUserId,
     ).populate({
       path: 'expenseId',
       select: 'paidBy', // Solo obtenemos el campo 'paidBy' del gasto
@@ -42,7 +42,7 @@ const createConfirmedPaymentNotification = async (payment) => {
   try {
     // 1. Obtener el ExpenseUser asociado al pago
     const expenseUser = await ExpenseUser.findById(
-      payment.expenseUserId
+        payment.expenseUserId,
     ).populate({
       path: 'expenseId',
       select: 'paidBy', // Obtener solo el campo 'paidBy' del Expense
@@ -67,8 +67,8 @@ const createConfirmedPaymentNotification = async (payment) => {
     return await createNotification(notificationData);
   } catch (error) {
     console.error(
-      'Error al crear la notificación de confirmación:',
-      error.message
+        'Error al crear la notificación de confirmación:',
+        error.message,
     );
     throw new Error('No se pudo crear la notificación de confirmación');
   }
@@ -78,7 +78,7 @@ const createRejectedPaymentNotification = async (payment) => {
   try {
     // 1. Obtener el ExpenseUser asociado al pago
     const expenseUser = await ExpenseUser.findById(
-      payment.expenseUserId
+        payment.expenseUserId,
     ).populate({
       path: 'expenseId',
       select: 'paidBy', // Obtener solo el campo 'paidBy' del Expense
@@ -122,9 +122,9 @@ const deleteNotification = async (notificationId) => {
 const markNotificationAsRead = async (userId, type, referenceId) => {
   const notification =
     await NotificationResource.getNotificationByTypeAndReference(
-      userId,
-      type,
-      referenceId
+        userId,
+        type,
+        referenceId,
     );
   if (notification) {
     notification.read = true;
@@ -134,7 +134,7 @@ const markNotificationAsRead = async (userId, type, referenceId) => {
 
 const markNotificationAsReadEasier = async (notificationId) => {
   const notification = await NotificationResource.getNotificationById(
-    notificationId
+      notificationId,
   );
   if (notification) {
     notification.read = true;
