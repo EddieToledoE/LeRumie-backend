@@ -18,10 +18,10 @@ const GroupSchema = new mongoose.Schema({
   updatedAt: {type: Date, default: Date.now},
 });
 
-GroupSchema.pre('save', function (next) {
+GroupSchema.pre('save', function(next) {
   if (this.isFixedExpenses && this.billingDay && this.billingPeriod) {
     const now = new Date();
-    let nextDate = new Date(now.getFullYear(), now.getMonth(), this.billingDay);
+    const nextDate = new Date(now.getFullYear(), now.getMonth(), this.billingDay);
 
     // Si la fecha ya pasó este mes, mover a la próxima facturación
     if (now > nextDate) {

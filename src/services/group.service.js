@@ -20,7 +20,7 @@ const createGroup = async (groupData) => {
       userId,
       groupId: group._id,
       role: userId === createdBy ? 'admin' : 'member',
-    })
+    }),
   );
 
   await Promise.all(userGroupPromises);

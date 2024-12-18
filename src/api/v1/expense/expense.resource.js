@@ -18,7 +18,15 @@ const getExpensesByUserId = async (userId) => {
 };
 
 const getExpensesByGroupId = async (groupId) => {
-  return await Expense.find({groupId});
+  return await Expense.find({groupId})
+    .populate({
+      path: 'paidBy',
+      select: 'username', // Solo traer el username
+    })
+    .populate({
+      path: 'splitBetween.userId',
+      select: 'username', // Traer username de los usuarios del array splitBetween
+    });
 };
 
 const updateExpense = async (expenseId, updateData) => {

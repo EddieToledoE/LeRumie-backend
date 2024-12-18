@@ -13,8 +13,8 @@ const createGroupSchema = Joi.object({
   billingPeriod: Joi.when('isFixedExpenses', {
     is: true,
     then: Joi.string()
-      .valid('monthly', 'bimonthly', 'quarterly', 'semiannual', 'annual')
-      .required(),
+        .valid('monthly', 'bimonthly', 'quarterly', 'semiannual', 'annual')
+        .required(),
     otherwise: Joi.optional(),
   }),
 });
