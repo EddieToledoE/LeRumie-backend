@@ -10,6 +10,7 @@ const expenseRoutes = require('./src/api/v1/expense/routes/expenseRoutes');
 const expenseUser = require('./src/api/v1/expenseUser/routes/expenseUserRoutes');
 const paymentRoutes = require('./src/api/v1/payment/routes/paymentRoutes');
 const notificationRoutes = require('./src/api/v1/notifications/routes/notificationRoutes');
+const taskRoutes = require('./src/api/v1/tasks/routes/taskRoutes');
 const authenticateToken = require('./src/api/v1/middleware/auth.middleware');
 const app = express();
 
@@ -27,6 +28,7 @@ async function startServer() {
   app.use('/api/v1/expenseuser', expenseUser);
   app.use('/api/v1/payments', paymentRoutes);
   app.use('/api/v1/notifications', notificationRoutes);
+  app.use('/api/v1/tasks', authenticateToken, taskRoutes);
   app.listen(3001, () => {
     console.log('Server running on port 3000');
     console.log('Swagger docs available at http://localhost:3000/api-docs');
