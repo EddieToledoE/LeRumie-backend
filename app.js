@@ -30,7 +30,7 @@ async function startServer() {
   app.use('/api/v1/payments', paymentRoutes);
   app.use('/api/v1/notifications', notificationRoutes);
   app.use('/api/v1/tasks', taskRoutes);
-  app.use('/api/devices', devicesRoutes);
+  app.use('/api/v1/devices', devicesRoutes);
   app.listen(3001, () => {
     console.log('Server running on port 3000');
     console.log('Swagger docs available at http://localhost:3000/api-docs');
