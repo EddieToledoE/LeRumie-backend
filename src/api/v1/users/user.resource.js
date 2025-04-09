@@ -81,6 +81,12 @@ const getFriends = async (userId) => {
   return await User.findById(userId).populate('friends');
 };
 
+const getAllUsers = async () => {
+  return await User.find({})
+      .select('username _id name email createdAt') // Seleccionamos los campos que queremos devolver
+      .sort({createdAt: -1}); // Ordenamos por fecha de creación descendente
+};
+
 module.exports = {
   createUser,
   getUserById,
@@ -93,4 +99,5 @@ module.exports = {
   acceptFriendRequest,
   rejectFriendRequest,
   searchUsersByUsername,
+  getAllUsers,
 };

@@ -44,6 +44,10 @@ const getFriends = async (userId) => {
   return await userResource.getFriends(userId);
 };
 
+const getAllUsers = async () => {
+  return await userResource.getAllUsers();
+};
+
 module.exports = {
   createUser,
   getUserById,
@@ -55,4 +59,5 @@ module.exports = {
   acceptFriendRequest,
   rejectFriendRequest,
   searchUsersByUsername,
+  getAllUsers,
 };

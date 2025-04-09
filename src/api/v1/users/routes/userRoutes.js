@@ -9,6 +9,7 @@ const {
   acceptFriendRequest,
   rejectFriendRequest,
   searchUsersByUsername,
+  getAllUsers,
 } = require('../user.controller');
 const authenticateToken = require('../../middleware/auth.middleware');
 const router = Router();
@@ -22,4 +23,5 @@ router.post('/friend/request/:id', sendFriendRequest);
 router.post('/friend/accept/:id', acceptFriendRequest);
 router.post('/friend/reject/:id', rejectFriendRequest);
 router.get('/friend/search', searchUsersByUsername);
+router.get('/', getAllUsers);
 module.exports = router;
